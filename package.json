@@ -1,0 +1,10 @@
+{
+	"name": "react-contextual-analytics",
+	"workspaces": [
+		"packages/*",
+		"examples/*"
+	],
+	"dependencies": {
+		"@tsconfig/recommended": "^1.0.8"
+	}
+}
