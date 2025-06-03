@@ -32,7 +32,6 @@ jobs:
             ${{ github.runner.os }}-ts-
       
       - name: Install dependencies
-        working-directory: packages/react-contextual-analytics
         run: npm ci
       
       - name: Type check
@@ -52,7 +51,6 @@ jobs:
           cache-dependency-path: package-lock.json
       
       - name: Install dependencies
-        working-directory: packages/react-contextual-analytics
         run: npm ci
       
       - name: Run tests
@@ -80,7 +78,6 @@ jobs:
             ${{ github.runner.os }}-ts-
       
       - name: Install dependencies
-        working-directory: packages/react-contextual-analytics
         run: npm ci
       
       - name: Build package
