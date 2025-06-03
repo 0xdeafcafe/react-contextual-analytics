@@ -1,0 +1,89 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '20.x'
+  CACHE_KEY: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+  TS_CACHE_KEY: ${{ runner.os }}-ts-${{ hashFiles('packages/react-contextual-analytics/tsconfig.json') }}
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'packages/react-contextual-analytics/package-lock.json'
+      
+      - name: Cache TypeScript build info
+        uses: actions/cache@v4
+        with:
+          path: packages/react-contextual-analytics/.tsbuildinfo
+          key: ${{ env.TS_CACHE_KEY }}
+          restore-keys: |
+            ${{ runner.os }}-ts-
+      
+      - name: Install dependencies
+        working-directory: packages/react-contextual-analytics
+        run: npm ci
+      
+      - name: Type check
+        working-directory: packages/react-contextual-analytics
+        run: npm run typecheck
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'packages/react-contextual-analytics/package-lock.json'
+      
+      - name: Install dependencies
+        working-directory: packages/react-contextual-analytics
+        run: npm ci
+      
+      - name: Run tests
+        working-directory: packages/react-contextual-analytics
+        run: npm test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: 'packages/react-contextual-analytics/package-lock.json'
+      
+      - name: Cache TypeScript build info
+        uses: actions/cache@v4
+        with:
+          path: packages/react-contextual-analytics/.tsbuildinfo
+          key: ${{ env.TS_CACHE_KEY }}
+          restore-keys: |
+            ${{ runner.os }}-ts-
+      
+      - name: Install dependencies
+        working-directory: packages/react-contextual-analytics
+        run: npm ci
+      
+      - name: Build package
+        working-directory: packages/react-contextual-analytics
+        run: npm run build
