@@ -1,0 +1,52 @@
+name: publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  NODE_VERSION: '20.x'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Cache TypeScript build info
+        uses: actions/cache@v4
+        with:
+          path: packages/react-contextual-analytics/.tsbuildinfo
+          key: ${{ github.runner.os }}-ts-${{ hashFiles('packages/react-contextual-analytics/tsconfig.json') }}
+          restore-keys: |
+            ${{ github.runner.os }}-ts-
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Type check
+        working-directory: packages/react-contextual-analytics
+        run: npm run typecheck
+      
+      - name: Run tests
+        working-directory: packages/react-contextual-analytics
+        run: npm test
+      
+      - name: Build package
+        working-directory: packages/react-contextual-analytics
+        run: npm run build
+      
+      - name: Publish to npm
+        working-directory: packages/react-contextual-analytics
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
