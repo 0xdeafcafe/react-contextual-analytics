@@ -5,10 +5,11 @@ import { useAnalytics } from '../use-analytics';
 import { createAnalyticsClient } from '../client';
 import consoleProvider from '../providers/console';
 import { fireEvent } from '@testing-library/react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('AnalyticsProvider', () => {
   const mockClient = createAnalyticsClient([consoleProvider]);
-  const mockEmit = jest.spyOn(mockClient, 'emit');
+  const mockEmit = vi.spyOn(mockClient, 'emit');
 
   beforeEach(() => {
     mockEmit.mockClear();
@@ -94,7 +95,7 @@ describe('AnalyticsProvider', () => {
   describe('client changes and nested providers', () => {
     it('should handle client prop changes', () => {
       const newClient = createAnalyticsClient([consoleProvider]);
-      const newMockEmit = jest.spyOn(newClient, 'emit');
+      const newMockEmit = vi.spyOn(newClient, 'emit');
 
       const TestComponent = () => {
         const { emit } = useAnalytics();
@@ -128,7 +129,7 @@ describe('AnalyticsProvider', () => {
 
     it('should handle nested providers', () => {
       const innerClient = createAnalyticsClient([consoleProvider]);
-      const innerMockEmit = jest.spyOn(innerClient, 'emit');
+      const innerMockEmit = vi.spyOn(innerClient, 'emit');
 
       const InnerComponent = () => {
         const { emit } = useAnalytics();
@@ -196,11 +197,11 @@ describe('AnalyticsProvider', () => {
 
       const errorClient = createAnalyticsClient([consoleProvider]);
       const mockError = new Error('Test error');
-      jest.spyOn(errorClient, 'emit').mockImplementation(() => {
+      vi.spyOn(errorClient, 'emit').mockImplementation(() => {
         throw mockError;
       });
 
-      const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 
       class TestComponent extends React.Component<{}, { hasError: boolean }> {
         constructor(props: {}) {

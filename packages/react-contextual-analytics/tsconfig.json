@@ -1,8 +1,8 @@
 {
 	"extends": "../../tsconfig.json",
 	"compilerOptions": {
-		"target": "es2018",
-		"module": "commonjs",
+		"target": "ES2020",
+		"module": "ESNext",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"jsx": "react",
 		"declaration": true,
@@ -22,7 +22,7 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"types": ["jest", "@testing-library/jest-dom"]
+		"types": ["vitest", "@testing-library/jest-dom"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]

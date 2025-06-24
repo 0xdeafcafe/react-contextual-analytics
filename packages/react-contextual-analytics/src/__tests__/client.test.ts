@@ -1,17 +1,18 @@
 import { createAnalyticsClient } from '../client';
 import { Provider } from '../types';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 // Mock provider
 const mockProvider: Provider = {
   id: 'test-provider',
-  send: jest.fn().mockResolvedValue(undefined)
+  send: vi.fn().mockResolvedValue(undefined)
 };
 
 // Create a mutable mock value
 let mockIsBrowser = true;
 
 // Mock the isBrowser module
-jest.mock('../utils/is-browser', () => ({
+vi.mock('../utils/is-browser', () => ({
   get isBrowser() {
     return mockIsBrowser;
   }
@@ -20,13 +21,13 @@ jest.mock('../utils/is-browser', () => ({
 describe('createAnalyticsClient', () => {
   beforeEach(() => {
     // Reset mocks
-    jest.clearAllMocks();
+    vi.clearAllMocks();
     // Reset mock value
     mockIsBrowser = true;
   });
 
   it('should not be available in server environment', () => {
-    const consoleWarnSpy = jest.spyOn(console, 'warn').mockImplementation();
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation();
     
     // Override the mock for this test
     mockIsBrowser = false;
@@ -88,10 +89,10 @@ describe('createAnalyticsClient', () => {
   });
 
   it('should handle provider errors gracefully', async () => {
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
     const errorProvider: Provider = {
       id: 'error-provider',
-      send: jest.fn().mockRejectedValue(new Error('Provider error'))
+      send: vi.fn().mockRejectedValue(new Error('Provider error'))
     };
 
     const client = createAnalyticsClient([mockProvider, errorProvider]);

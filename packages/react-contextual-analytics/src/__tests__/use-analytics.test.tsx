@@ -5,10 +5,11 @@ import { AnalyticsProvider } from '../analytics-provider';
 import { AnalyticsBoundaryProvider } from '../boundary-provider';
 import { createAnalyticsClient } from '../client';
 import consoleProvider from '../providers/console';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 
 describe('useAnalytics', () => {
   const mockClient = createAnalyticsClient([consoleProvider]);
-  const mockEmit = jest.spyOn(mockClient, 'emit');
+  const mockEmit = vi.spyOn(mockClient, 'emit');
 
   beforeEach(() => {
     mockEmit.mockClear();
