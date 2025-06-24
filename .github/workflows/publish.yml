@@ -21,6 +21,11 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
       
       - name: Cache TypeScript build info
         uses: actions/cache@v4

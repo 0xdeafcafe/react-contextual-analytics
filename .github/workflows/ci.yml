@@ -22,7 +22,12 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
-      
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
       - name: Cache TypeScript build info
         uses: actions/cache@v4
         with:
@@ -50,6 +55,11 @@ jobs:
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -68,7 +78,12 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
           cache-dependency-path: pnpm-lock.yaml
-      
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
       - name: Cache TypeScript build info
         uses: actions/cache@v4
         with:
