@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  NODE_VERSION: '20.x'
+  NODE_VERSION: '22.x'
 
 jobs:
   typecheck:
@@ -20,8 +20,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
       
       - name: Cache TypeScript build info
         uses: actions/cache@v4
@@ -30,13 +30,13 @@ jobs:
           key: ${{ github.runner.os }}-ts-${{ hashFiles('packages/react-contextual-analytics/tsconfig.json') }}
           restore-keys: |
             ${{ github.runner.os }}-ts-
-      
+
       - name: Install dependencies
-        run: npm ci
-      
+        run: pnpm install --frozen-lockfile
+
       - name: Type check
         working-directory: packages/react-contextual-analytics
-        run: npm run typecheck
+        run: pnpm run typecheck
 
   test:
     runs-on: ubuntu-latest
@@ -47,15 +47,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-      
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
+
       - name: Install dependencies
-        run: npm ci
-      
+        run: pnpm install --frozen-lockfile
+
       - name: Run tests
         working-directory: packages/react-contextual-analytics
-        run: npm test
+        run: pnpm test
 
   build:
     runs-on: ubuntu-latest
@@ -66,8 +66,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
+          cache: 'pnpm'
+          cache-dependency-path: pnpm-lock.yaml
       
       - name: Cache TypeScript build info
         uses: actions/cache@v4
@@ -78,8 +78,8 @@ jobs:
             ${{ github.runner.os }}-ts-
       
       - name: Install dependencies
-        run: npm ci
-      
-      - name: Build package
+        run: pnpm install --frozen-lockfile
+
+      - name: Build packages
         working-directory: packages/react-contextual-analytics
-        run: npm run build
+        run: pnpm run build
