@@ -5,7 +5,7 @@
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18+-61dafb.svg)](https://reactjs.org/)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/react-contextual-analytics)](https://bundlephobia.com/package/react-contextual-analytics)
-[![Build Status](https://github.com/0xdeafcafe/react-contextual-analytics/workflows/CI/badge.svg)](https://github.com/0xdeafcafe/react-contextual-analytics/actions)
+[![Build Status](https://github.com/0xdeafcafe/react-contextual-analytics/workflows/ci/badge.svg)](https://github.com/0xdeafcafe/react-contextual-analytics/actions)
 [![Coverage](https://img.shields.io/codecov/c/github/0xdeafcafe/react-contextual-analytics)](https://codecov.io/gh/0xdeafcafe/react-contextual-analytics)
 
 A React framework for collecting and emitting analytics events with minimal boilerplate. Automatically collects context through component boundaries, making analytics implementation simpler and more maintainable.
