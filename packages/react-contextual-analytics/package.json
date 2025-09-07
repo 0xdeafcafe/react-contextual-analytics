@@ -20,6 +20,7 @@
     "postbuild": "tsgo --declaration --emitDeclarationOnly --outDir ./dist --project tsconfig.json",
     "typecheck": "tsgo --noEmit",
     "test": "vitest",
+    "test:coverage": "vitest --coverage",
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui"
   },
