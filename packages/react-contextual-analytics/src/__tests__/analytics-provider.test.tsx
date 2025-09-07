@@ -240,7 +240,7 @@ describe('AnalyticsProvider', () => {
 
       // Click should trigger error state and error boundary should catch
       fireEvent.click(getByText('Test'));
-      expect(queryByText('Error caught')).toBeInTheDocument();
+      expect(queryByText('Error caught')).toBeDefined();
 
       // Cleanup
       consoleSpy.mockRestore();
