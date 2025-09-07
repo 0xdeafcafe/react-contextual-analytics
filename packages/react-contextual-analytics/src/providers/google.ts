@@ -2,7 +2,7 @@ import { Provider } from '../types';
 
 export default {
 	id: 'google',
-	send: event => {
+	send: async event => {
 		const name = [
 			event.boundary,
 			event.name,
