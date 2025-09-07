@@ -5,7 +5,7 @@ import { AnalyticsProvider } from '../analytics-provider';
 import { AnalyticsBoundaryProvider } from '../boundary-provider';
 import { createAnalyticsClient } from '../client';
 import consoleProvider from '../providers/console';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { vi } from 'vitest';
 
 describe('useAnalytics', () => {
   const mockClient = createAnalyticsClient([consoleProvider]);
@@ -38,7 +38,7 @@ describe('useAnalytics', () => {
         testAttr: 'value',
         extra: 'data'
       },
-      undefined
+      void 0
     );
   });
 
@@ -58,7 +58,7 @@ describe('useAnalytics', () => {
         hookAttr: 'value',
         eventAttr: 'value'
       },
-      undefined
+      void 0
     );
   });
 
@@ -105,7 +105,7 @@ describe('useAnalytics', () => {
           overrideAttr: 'value',
           extra: 'data'
         },
-        undefined
+        void 0
       );
     });
 
@@ -127,7 +127,7 @@ describe('useAnalytics', () => {
           testAttr: 'value',
           extra: 'data'
         },
-        undefined
+        void 0
       );
     });
   });
@@ -137,18 +137,18 @@ describe('useAnalytics', () => {
       const { result } = renderHook(() => useAnalytics(), { wrapper });
 
       act(() => {
-        result.current.emit('clicked', undefined as any, { extra: 'data' });
+        result.current.emit('clicked', void 0 as any, { extra: 'data' });
       });
 
       expect(mockEmit).toHaveBeenCalledWith(
         'clicked',
-        undefined,
+        void 0,
         'test-boundary',
         {
           testAttr: 'value',
           extra: 'data'
         },
-        undefined
+        void 0
       );
     });
 
@@ -156,7 +156,7 @@ describe('useAnalytics', () => {
       const { result } = renderHook(() => useAnalytics(), { wrapper });
 
       act(() => {
-        result.current.emit('clicked', 'button', undefined as any);
+        result.current.emit('clicked', 'button', void 0 as any);
       });
 
       expect(mockEmit).toHaveBeenCalledWith(
@@ -166,7 +166,7 @@ describe('useAnalytics', () => {
         {
           testAttr: 'value'
         },
-        undefined
+        void 0
       );
     });
 
@@ -192,7 +192,7 @@ describe('useAnalytics', () => {
           hookAttr: 'initial',
           eventAttr: 'value'
         },
-        undefined
+        void 0
       );
 
       mockEmit.mockClear();
@@ -213,7 +213,7 @@ describe('useAnalytics', () => {
           hookAttr: 'updated',
           eventAttr: 'new'
         },
-        undefined
+        void 0
       );
     });
 
@@ -241,7 +241,7 @@ describe('useAnalytics', () => {
           testAttr: 'value',
           hook1: 'value1'
         },
-        undefined
+        void 0
       );
 
       mockEmit.mockClear();
@@ -255,7 +255,7 @@ describe('useAnalytics', () => {
           testAttr: 'value',
           hook2: 'value2'
         },
-        undefined
+        void 0
       );
     });
   });

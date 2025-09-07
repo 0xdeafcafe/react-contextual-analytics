@@ -5,7 +5,7 @@ import { useAnalytics } from '../use-analytics';
 import { createAnalyticsClient } from '../client';
 import consoleProvider from '../providers/console';
 import { fireEvent } from '@testing-library/react';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { vi } from 'vitest';
 
 describe('AnalyticsProvider', () => {
   const mockClient = createAnalyticsClient([consoleProvider]);
@@ -36,9 +36,9 @@ describe('AnalyticsProvider', () => {
     expect(mockEmit).toHaveBeenCalledWith(
       'clicked',
       'test',
-      undefined,
+      void 0,
       {},
-      undefined
+      void 0
     );
   });
 
@@ -53,7 +53,7 @@ describe('AnalyticsProvider', () => {
     };
 
     render(
-      <AnalyticsProvider client={undefined}>
+      <AnalyticsProvider client={void 0}>
         <TestComponent />
       </AnalyticsProvider>
     );
@@ -164,18 +164,18 @@ describe('AnalyticsProvider', () => {
       expect(mockEmit).toHaveBeenCalledWith(
         'clicked',
         'outer',
-        undefined,
+        void 0,
         {},
-        undefined
+        void 0
       );
 
       screen.getByText('Inner Button').click();
       expect(innerMockEmit).toHaveBeenCalledWith(
         'clicked',
         'inner',
-        undefined,
+        void 0,
         {},
-        undefined
+        void 0
       );
     });
 
@@ -188,7 +188,7 @@ describe('AnalyticsProvider', () => {
         static getDerivedStateFromError() {
           return { hasError: true };
         }
-        componentDidCatch() {}
+        componentDidCatch() { }
         render() {
           if (this.state.hasError) return <div>Error caught</div>;
           return this.props.children;
@@ -201,7 +201,7 @@ describe('AnalyticsProvider', () => {
         throw mockError;
       });
 
-      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { });
 
       class TestComponent extends React.Component<{}, { hasError: boolean }> {
         constructor(props: {}) {

@@ -51,7 +51,7 @@ describe('AnalyticsBoundaryProvider', () => {
       'button',
       'test',
       {},
-      undefined
+      void 0
     );
   });
 
@@ -65,10 +65,10 @@ describe('AnalyticsBoundaryProvider', () => {
 
     expect(mockEmit).toHaveBeenCalledWith(
       'viewed',
-      undefined,
+      void 0,
       'test',
       {},
-      undefined
+      void 0
     );
   });
 
@@ -107,7 +107,7 @@ describe('AnalyticsBoundaryProvider', () => {
         parentAttr: 'value',
         childAttr: 'value'
       },
-      undefined
+      void 0
     );
   });
 
@@ -138,7 +138,7 @@ describe('AnalyticsBoundaryProvider', () => {
       'parent-button',
       'parent',
       { parentAttr: 'value' },
-      undefined
+      void 0
     );
 
     mockEmit.mockClear();
@@ -152,7 +152,7 @@ describe('AnalyticsBoundaryProvider', () => {
         parentAttr: 'value',
         childAttr: 'value'
       },
-      undefined
+      void 0
     );
   });
 
@@ -195,7 +195,7 @@ describe('AnalyticsBoundaryProvider', () => {
           attr2: 'value2',
           attr3: 'value3'
         },
-        undefined
+        void 0
       );
     });
 
@@ -213,7 +213,7 @@ describe('AnalyticsBoundaryProvider', () => {
         undefined,
         'test',
         {},
-        undefined
+        void 0
       );
 
       mockEmit.mockClear();
@@ -246,7 +246,7 @@ describe('AnalyticsBoundaryProvider', () => {
         'button',
         'test',
         { initial: 'value' },
-        undefined
+        void 0
       );
 
       mockEmit.mockClear();
@@ -268,7 +268,7 @@ describe('AnalyticsBoundaryProvider', () => {
         'button',
         'test',
         { updated: 'value' },
-        undefined
+          void 0
       );
     });
 

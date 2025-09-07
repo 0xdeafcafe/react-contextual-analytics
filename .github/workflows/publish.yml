@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          version: 10
-
+          version: latest
+      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -36,22 +36,20 @@ jobs:
             ${{ github.runner.os }}-ts-
       
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
       
       - name: Type check
-        working-directory: packages/react-contextual-analytics
-        run: pnpm run typecheck
+        run: pnpm typecheck
       
       - name: Run tests
-        working-directory: packages/react-contextual-analytics
         run: pnpm test
       
       - name: Build package
-        working-directory: packages/react-contextual-analytics
-        run: pnpm run build
+        run: pnpm build
       
       - name: Publish to npm
         working-directory: packages/react-contextual-analytics
         run: pnpm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+

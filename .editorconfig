@@ -1,0 +1,25 @@
+# Top-most EditorConfig file
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = tab
+indent_size = 2
+
+# TypeScript and JavaScript files
+[*.{ts,tsx,js,jsx}]
+indent_style = tab
+indent_size = 2
+
+# Markdown files
+[*.md]
+max_line_length = off
+
+# Support files
+[*.json,*.{yml,yaml}]
+indent_style = space
+indent_size = 2

@@ -1,11 +1,11 @@
 import { createAnalyticsClient } from '../client';
 import { Provider } from '../types';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { vi } from 'vitest';
 
 // Mock provider
 const mockProvider: Provider = {
   id: 'test-provider',
-  send: vi.fn().mockResolvedValue(undefined)
+  send: vi.fn().mockResolvedValue(void 0)
 };
 
 // Create a mutable mock value
@@ -27,7 +27,7 @@ describe('createAnalyticsClient', () => {
   });
 
   it('should not be available in server environment', () => {
-    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation();
+    const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     
     // Override the mock for this test
     mockIsBrowser = false;
@@ -84,12 +84,12 @@ describe('createAnalyticsClient', () => {
       action: 'test-action',
       name: 'test-name',
       attributes: { testAttr: 'value' },
-      context: undefined
+      context: void 0
     });
   });
 
   it('should handle provider errors gracefully', async () => {
-    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation();
+    const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const errorProvider: Provider = {
       id: 'error-provider',
       send: vi.fn().mockRejectedValue(new Error('Provider error'))

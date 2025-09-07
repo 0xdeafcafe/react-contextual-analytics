@@ -18,11 +18,10 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": false,
-		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"]
+			"@/*": ["./src/*"]
 		},
-		"types": ["vitest", "@testing-library/jest-dom"]
+		"types": ["vitest/globals", "@testing-library/jest-dom"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.test.tsx"]
