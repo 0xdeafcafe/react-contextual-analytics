@@ -16,7 +16,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --sourcemap --minify",
+    "prebuild": "rm -rf dist",
+    "build": "esbuild src/index.ts src/providers/index.ts --bundle --outdir=dist --sourcemap --minify --format=esm",
     "postbuild": "tsgo --declaration --emitDeclarationOnly --outDir ./dist --project tsconfig.json",
     "prepublishOnly": "cp ../../README.md ./README.md",
     "typecheck": "tsgo --noEmit",
