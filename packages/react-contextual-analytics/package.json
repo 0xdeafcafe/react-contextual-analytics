@@ -1,6 +1,6 @@
 {
   "name": "react-contextual-analytics",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React Contextual Analytics (RCA) is a framework for collecting and emitting rich contextual analytics events to various analytics providers.",
   "homepage": "https://github.com/0xdeafcafe/react-contextual-analytics#readme",
   "bugs": {
