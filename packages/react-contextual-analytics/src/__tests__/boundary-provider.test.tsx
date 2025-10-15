@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AnalyticsBoundaryProvider } from '../boundary-provider';
+import { AnalyticsBoundary } from '../boundary-provider';
 import { AnalyticsProvider } from '../analytics-provider';
 import { createAnalyticsClient } from '../client';
 import consoleProvider from '../providers/console';
 import { AnalyticsEmitter } from '../use-analytics';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 
-describe('AnalyticsBoundaryProvider', () => {
+describe('AnalyticsBoundary', () => {
   const mockClient = createAnalyticsClient([consoleProvider]);
   const mockEmit = vi.spyOn(mockClient, 'emit');
 
@@ -23,9 +23,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
   it('should render children directly', () => {
     render(
-      <AnalyticsBoundaryProvider name="test">
+      <AnalyticsBoundary name="test">
         <div>Test Content</div>
-      </AnalyticsBoundaryProvider>,
+      </AnalyticsBoundary>,
       { wrapper }
     );
 
@@ -34,13 +34,13 @@ describe('AnalyticsBoundaryProvider', () => {
 
   it('should render children with emit callback', () => {
     render(
-      <AnalyticsBoundaryProvider name="test">
+      <AnalyticsBoundary name="test">
         {(emit: AnalyticsEmitter) => (
           <button onClick={() => emit('clicked', 'button')}>
             Test Button
           </button>
         )}
-      </AnalyticsBoundaryProvider>,
+      </AnalyticsBoundary>,
       { wrapper }
     );
 
@@ -57,9 +57,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
   it('should send viewed event on mount when sendViewedEvent is true', () => {
     render(
-      <AnalyticsBoundaryProvider name="test" sendViewedEvent={true}>
+      <AnalyticsBoundary name="test" sendViewedEvent={true}>
         <div>Test Content</div>
-      </AnalyticsBoundaryProvider>,
+      </AnalyticsBoundary>,
       { wrapper }
     );
 
@@ -74,9 +74,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
   it('should not send viewed event when sendViewedEvent is false', () => {
     render(
-      <AnalyticsBoundaryProvider name="test" sendViewedEvent={false}>
+      <AnalyticsBoundary name="test" sendViewedEvent={false}>
         <div>Test Content</div>
-      </AnalyticsBoundaryProvider>,
+      </AnalyticsBoundary>,
       { wrapper }
     );
 
@@ -85,15 +85,15 @@ describe('AnalyticsBoundaryProvider', () => {
 
   it('should merge attributes from parent boundaries', () => {
     render(
-      <AnalyticsBoundaryProvider name="parent" attributes={{ parentAttr: 'value' }}>
-        <AnalyticsBoundaryProvider name="child" attributes={{ childAttr: 'value' }}>
+      <AnalyticsBoundary name="parent" attributes={{ parentAttr: 'value' }}>
+        <AnalyticsBoundary name="child" attributes={{ childAttr: 'value' }}>
           {(emit: AnalyticsEmitter) => (
             <button onClick={() => emit('clicked', 'button')}>
               Test Button
             </button>
           )}
-        </AnalyticsBoundaryProvider>
-      </AnalyticsBoundaryProvider>,
+        </AnalyticsBoundary>
+      </AnalyticsBoundary>,
       { wrapper }
     );
 
@@ -113,9 +113,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
   it('should handle nested boundaries with emit callbacks', () => {
     render(
-      <AnalyticsBoundaryProvider name="parent" attributes={{ parentAttr: 'value' }}>
+      <AnalyticsBoundary name="parent" attributes={{ parentAttr: 'value' }}>
         {(parentEmit: AnalyticsEmitter) => (
-          <AnalyticsBoundaryProvider name="child" attributes={{ childAttr: 'value' }}>
+          <AnalyticsBoundary name="child" attributes={{ childAttr: 'value' }}>
             {(childEmit: AnalyticsEmitter) => (
               <div>
                 <button onClick={() => parentEmit('clicked', 'parent-button')}>
@@ -126,9 +126,9 @@ describe('AnalyticsBoundaryProvider', () => {
                 </button>
               </div>
             )}
-          </AnalyticsBoundaryProvider>
+          </AnalyticsBoundary>
         )}
-      </AnalyticsBoundaryProvider>,
+      </AnalyticsBoundary>,
       { wrapper }
     );
 
@@ -159,9 +159,9 @@ describe('AnalyticsBoundaryProvider', () => {
   describe('validation and edge cases', () => {
     it('should handle empty boundary name', () => {
       render(
-        <AnalyticsBoundaryProvider name="">
+        <AnalyticsBoundary name="">
           <div>Test Content</div>
-        </AnalyticsBoundaryProvider>,
+        </AnalyticsBoundary>,
         { wrapper }
       );
 
@@ -170,17 +170,17 @@ describe('AnalyticsBoundaryProvider', () => {
 
     it('should handle deeply nested boundaries', () => {
       render(
-        <AnalyticsBoundaryProvider name="level1" attributes={{ attr1: 'value1' }}>
-          <AnalyticsBoundaryProvider name="level2" attributes={{ attr2: 'value2' }}>
-            <AnalyticsBoundaryProvider name="level3" attributes={{ attr3: 'value3' }}>
+        <AnalyticsBoundary name="level1" attributes={{ attr1: 'value1' }}>
+          <AnalyticsBoundary name="level2" attributes={{ attr2: 'value2' }}>
+            <AnalyticsBoundary name="level3" attributes={{ attr3: 'value3' }}>
               {(emit: AnalyticsEmitter) => (
                 <button onClick={() => emit('clicked', 'deep-button')}>
                   Deep Button
                 </button>
               )}
-            </AnalyticsBoundaryProvider>
-          </AnalyticsBoundaryProvider>
-        </AnalyticsBoundaryProvider>,
+            </AnalyticsBoundary>
+          </AnalyticsBoundary>
+        </AnalyticsBoundary>,
         { wrapper }
       );
 
@@ -201,9 +201,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
     it('should only send viewed event once on mount', () => {
       const { rerender } = render(
-        <AnalyticsBoundaryProvider name="test" sendViewedEvent={true}>
+        <AnalyticsBoundary name="test" sendViewedEvent={true}>
           <div>Test Content</div>
-        </AnalyticsBoundaryProvider>,
+        </AnalyticsBoundary>,
         { wrapper }
       );
 
@@ -220,9 +220,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
       // Re-render with same props
       rerender(
-        <AnalyticsBoundaryProvider name="test" sendViewedEvent={true}>
+        <AnalyticsBoundary name="test" sendViewedEvent={true}>
           <div>Test Content Updated</div>
-        </AnalyticsBoundaryProvider>
+        </AnalyticsBoundary>
       );
 
       expect(mockEmit).not.toHaveBeenCalled();
@@ -230,13 +230,13 @@ describe('AnalyticsBoundaryProvider', () => {
 
     it('should handle attribute updates', () => {
       const { rerender } = render(
-        <AnalyticsBoundaryProvider name="test" attributes={{ initial: 'value' }}>
+        <AnalyticsBoundary name="test" attributes={{ initial: 'value' }}>
           {(emit: AnalyticsEmitter) => (
             <button onClick={() => emit('clicked', 'button')}>
               Test Button
             </button>
           )}
-        </AnalyticsBoundaryProvider>,
+        </AnalyticsBoundary>,
         { wrapper }
       );
 
@@ -253,13 +253,13 @@ describe('AnalyticsBoundaryProvider', () => {
 
       // Update attributes
       rerender(
-        <AnalyticsBoundaryProvider name="test" attributes={{ updated: 'value' }}>
+        <AnalyticsBoundary name="test" attributes={{ updated: 'value' }}>
           {(emit: AnalyticsEmitter) => (
             <button onClick={() => emit('clicked', 'button')}>
               Test Button
             </button>
           )}
-        </AnalyticsBoundaryProvider>
+        </AnalyticsBoundary>
       );
 
       screen.getByRole('button').click();
@@ -274,9 +274,9 @@ describe('AnalyticsBoundaryProvider', () => {
 
     it('should handle unmounting', () => {
       const { unmount } = render(
-        <AnalyticsBoundaryProvider name="test" sendViewedEvent={true}>
+        <AnalyticsBoundary name="test" sendViewedEvent={true}>
           <div>Test Content</div>
-        </AnalyticsBoundaryProvider>,
+        </AnalyticsBoundary>,
         { wrapper }
       );
 
@@ -288,4 +288,4 @@ describe('AnalyticsBoundaryProvider', () => {
       expect(mockEmit).not.toHaveBeenCalled();
     });
   });
-}); 
+});

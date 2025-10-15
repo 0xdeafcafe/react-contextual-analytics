@@ -2,7 +2,7 @@ import React from 'react';
 import { renderHook, act, render } from '@testing-library/react';
 import { useAnalytics, useUnsafeInternalEmitter } from '../use-analytics';
 import { AnalyticsProvider } from '../analytics-provider';
-import { AnalyticsBoundaryProvider } from '../boundary-provider';
+import { AnalyticsBoundary } from '../boundary-provider';
 import { createAnalyticsClient } from '../client';
 import consoleProvider from '../providers/console';
 import { vi } from 'vitest';
@@ -17,9 +17,9 @@ describe('useAnalytics', () => {
 
   const wrapper = ({ children }: { children: React.ReactNode }) => (
     <AnalyticsProvider client={mockClient}>
-      <AnalyticsBoundaryProvider name="test-boundary" attributes={{ testAttr: 'value' }}>
+      <AnalyticsBoundary name="test-boundary" attributes={{ testAttr: 'value' }}>
         {children}
-      </AnalyticsBoundaryProvider>
+      </AnalyticsBoundary>
     </AnalyticsProvider>
   );
 
@@ -259,4 +259,4 @@ describe('useAnalytics', () => {
       );
     });
   });
-}); 
+});
