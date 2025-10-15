@@ -12,7 +12,7 @@ interface AnalyticsBoundaryProviderProps extends AnalyticsBoundaryContextPropert
 
 export const AnalyticsBoundaryContext = createContext<AnalyticsBoundaryContextProperties | null>(null);
 
-export const AnalyticsBoundaryProvider: React.FC<PropsWithEmitterChild<AnalyticsBoundaryProviderProps>> = (props) => {
+export const AnalyticsBoundary: React.FC<PropsWithEmitterChild<AnalyticsBoundaryProviderProps>> = (props) => {
 	const { children, name, attributes, sendViewedEvent } = props;
 	const parentBoundary = useContext(AnalyticsBoundaryContext);
 
