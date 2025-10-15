@@ -1,6 +1,6 @@
 {
   "name": "react-contextual-analytics",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React Contextual Analytics (RCA) is a framework for collecting and emitting rich contextual analytics events to various analytics providers.",
   "homepage": "https://github.com/0xdeafcafe/react-contextual-analytics#readme",
   "bugs": {
@@ -13,13 +13,12 @@
   "license": "MIT",
   "author": "0xdeafcafe <git@alex.forbes.red>",
   "type": "module",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf dist",
-    "build": "pnpm run clean && pnpm run build:js && pnpm run build:types",
-    "build:js": "esbuild src/index.ts src/providers/index.ts --bundle --outdir=dist --outbase=src --sourcemap --minify --format=esm --platform=neutral --target=es2020 --external:react --external:react-dom --external:react/jsx-runtime",
-    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly --declaration --declarationMap --outDir dist",
+    "build": "pnpm run clean && tsup",
     "prepublishOnly": "cp ../../README.md ./README.md",
     "typecheck": "tsgo --noEmit",
     "test": "vitest",
@@ -28,6 +27,7 @@
     "test:ui": "vitest --ui"
   },
   "devDependencies": {
+    "@tsconfig/recommended": "^1.0.8",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^16.3.0",
@@ -39,6 +39,7 @@
     "esbuild": "^0.25.9",
     "jsdom": "^26.1.0",
     "react-dom": "^19.1.1",
+    "tsup": "^8.5.0",
     "typescript": "^5.3.3",
     "vitest": "^3.2.4"
   },
@@ -51,12 +52,9 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./providers": {
-      "import": "./dist/providers/index.js",
-      "types": "./dist/providers/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   }
 }

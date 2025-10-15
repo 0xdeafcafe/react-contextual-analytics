@@ -20,6 +20,8 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": false,
+		"incremental": false,
+		"composite": false,
 		"paths": {
 			"@/*": ["./src/*"]
 		},
